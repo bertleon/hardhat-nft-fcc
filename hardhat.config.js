@@ -1,7 +1,7 @@
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.17",
-};
+    solidity: "0.8.17",
+}
 require("@nomiclabs/hardhat-waffle")
 require("@nomiclabs/hardhat-etherscan")
 require("hardhat-deploy")
@@ -24,13 +24,14 @@ module.exports = {
     networks: {
         hardhat: {
             chainId: 31337,
-            forking: {
-                url: MAINNET_RPC_URL,
-            },
+            // forking: {
+            //     url: MAINNET_RPC_URL,
+            // },
             blockConfirmations: 1,
         },
         localhost: {
             chainId: 31337,
+            blockConfirmations: 1,
         },
         rinkeby: {
             chainId: 4,
