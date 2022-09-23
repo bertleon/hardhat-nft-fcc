@@ -10,6 +10,7 @@ module.exports = async function ({ getNamedAccounts }) {
     await basicMintTx.wait(1)
     console.log(`Basic NFT index 0 has tokenURI: ${await basicNft.tokenURI(0)}`)
 
+    const tokenNum = randomIpfsNft.getTokenCounter()
     const randomIpfsNft = await ethers.getContract("RandomIpfsNft", deployer)
     const mintFee = await randomIpfsNft.getMintFee()
 
@@ -32,7 +33,7 @@ module.exports = async function ({ getNamedAccounts }) {
 
     console.log("Exit promise")
 
-    console.log(`RAndom IPFS NFT index 0 tokenURI: ${await randomIpfsNft.tokenURI(0)}`)
+    console.log(`RAndom IPFS NFT index 0 tokenURI: ${await randomIpfsNft.tokenURI(tokenNum)}`)
 
     const highValue = ethers.utils.parseEther("4000")
     dynamicSvgNft = await ethers.getContract("DynamicSvgNft", deployer)
