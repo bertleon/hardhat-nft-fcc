@@ -1,5 +1,5 @@
 const { network, getNamedAccounts, deployments, ethers } = require("hardhat")
-const { developmentChains } = require("../helper-hardhat-config")
+const { developmentChains, networkConfig } = require("../helper-hardhat-config")
 const { verify } = require("../utils/verify")
 const fs = require("fs")
 module.exports = async function ({ getNamedAccounts, deployments }) {
@@ -15,7 +15,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
         const EthUsdAggregator = await ethers.getContract("MockV3Aggregator")
         ethUsdPriceFeedAddress = EthUsdAggregator.address
     } else {
-        ethUsdPriceFeedAddress = networkConfig[chainId].ethUsdPriceFeedAddress
+        ethUsdPriceFeedAddress = networkConfig[chainId].ethUsdPriceFeed
     }
 
     const lowSvg = await fs.readFileSync("./images/dynamicNft/frown.svg", { encoding: "utf-8" })
@@ -24,8 +24,6 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     args = [ethUsdPriceFeedAddress, lowSvg, highSvg]
 
     log("Deploying Dynamic SVG NFT")
-
-    console.log(typeof args[1])
 
     const dynamicSvgNft = await deploy("DynamicSvgNft", {
         from: deployer,
@@ -38,7 +36,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
 
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
         log("Verifying...")
-        await verify(dynamicNft.address, args)
+        await verify(dynamicSvgNft.address, args)
     }
 }
 

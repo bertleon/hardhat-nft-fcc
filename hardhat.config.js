@@ -65,6 +65,7 @@ module.exports = {
     etherscan: {
         apiKey: {
             rinkeby: ETHERSCAN_API_KEY,
+            goerli: ETHERSCAN_API_KEY,
         },
     },
     namedAccounts: {
